@@ -1,0 +1,6 @@
+- name: Запуск сервисов с помощью docker-compose
+  shell: |
+    cd /mnt/c/Users/erich/Desktop/lab_1/DevOps && docker-compose up -d
+  become: true
+  tags: start_services
+

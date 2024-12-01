@@ -1,0 +1,7 @@
+- name: Управление сервисами
+  hosts: my_servers
+  roles:
+    - start_services
+    - stop_services
+    - clone_repository
+    - docker_setup

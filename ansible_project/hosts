@@ -1,0 +1,4 @@
+[my_servers]
+172.31.57.2 ansible_user=root ansible_ssh_pass=1234DenisErichev ansible_become=true ansible_become_method=sudo
+
+

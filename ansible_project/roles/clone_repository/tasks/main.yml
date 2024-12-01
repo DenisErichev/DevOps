@@ -1,0 +1,20 @@
+- name: Клонирование репозитория frontend
+  git:
+    repo: "https://github.com/DenisErichev/frontend.git"
+    dest: "/mnt/c/Users/erich/Desktop/lab_1/Devops/frontend"
+  become: true
+  tags: clone_repository
+
+- name: Клонирование репозитория backend
+  git:
+    repo: "https://github.com/DenisErichev/backend.git"
+    dest: "/mnt/c/Users/erich/Desktop/lab_1/Devops/backend"
+  become: true
+  tags: clone_repository
+
+- name: Клонирование репозитория devops
+  git:
+    repo: "https://github.com/DenisErichev/DevOps.git"
+    dest: "/mnt/c/Users/erich/Desktop/lab_1/Devops/devops"
+  become: true
+  tags: clone_repository

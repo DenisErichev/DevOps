@@ -1,0 +1,39 @@
+- name: Установка необходимых пакетов
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - gnupg  # Установка GPG для команды gpg
+    state: present
+  become: true
+  tags: docker_setup
+
+- name: Добавление Docker GPG
+  shell: |
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  become: true
+  tags: docker_setup
+
+- name: Добавление Docker repository
+  shell: |
+    echo "deb [arch={{ ansible_architecture }} signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  become: true
+  tags: docker_setup
+
+- name: Скачивание Docker
+  apt:
+    name: docker-ce
+    state: present
+  become: true
+  tags: docker_setup
+
+- name: Скачивание Docker Compose
+  shell: |
+    curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+  become: true
+  tags: docker_setup
+
+
