@@ -4,7 +4,7 @@ pipeline {
     environment {
         ANSIBLE_PLAYBOOK = "ansible_project/playbook.yml"  // Путь до playbook
         INVENTORY_FILE = "ansible_project/hosts"          // Путь до inventory-файла
-        ANSIBLE_HOST_KEY_CHECKING = "False"               // Отключаем проверку хоста
+
     }
 
     stages {
