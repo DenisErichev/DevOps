@@ -1,3 +1,8 @@
+- name: Установить переменную окружения COMPOSE_HTTP_TIMEOUT
+  ansible.builtin.shell:
+    cmd: echo "export COMPOSE_HTTP_TIMEOUT=120" >> ~/.bashrc
+  become: true
+
 - name: Установка необходимых пакетов
   apt:
     name:
@@ -35,5 +40,7 @@
     chmod +x /usr/local/bin/docker-compose
   become: true
   tags: docker_setup
+
+
 
 
