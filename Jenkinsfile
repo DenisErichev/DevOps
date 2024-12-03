@@ -8,50 +8,24 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repositories') {
+        stage('Подготовка окружения') {
             steps {
                 script {
-                    echo "Этап 1: Клонирование репозиториев"
+                    echo "Этап 1: Подготовка окружения (установка Docker, клонирование репозиториев)"
                 }
                 sh """
-                    ansible-playbook ${ANSIBLE_PLAYBOOK} -i ${INVENTORY_FILE} --tags clone_repository
+                    ansible-playbook ${ANSIBLE_PLAYBOOK} -i ${INVENTORY_FILE} --tags docker_setup,clone_repository
                 """
             }
         }
 
-        stage('Setup Docker') {
+        stage('Запуск приложений') {
             steps {
                 script {
-                    echo "Этап 2: Настройка Docker и Docker Compose"
-                }
-                sh """
-                    ansible-playbook ${ANSIBLE_PLAYBOOK} -i ${INVENTORY_FILE} --tags docker_setup
-                """
-            }
-        }
-
-        stage('Start Services') {
-            steps {
-                script {
-                    echo "\n" +
-                            "Этап 3: Запуск Docker Compose"
+                    echo "Этап 2: Запуск приложений (Docker Compose)"
                 }
                 sh """
                     ansible-playbook ${ANSIBLE_PLAYBOOK} -i ${INVENTORY_FILE} --tags start_services
-                """
-            }
-        }
-    }
-
-    post {
-        always {
-            echo "Pipeline выполнен"
-        }
-        cleanup {
-            script {
-                echo "Остановка сервисов"
-                sh """
-                    ansible-playbook ${ANSIBLE_PLAYBOOK} -i ${INVENTORY_FILE} --tags stop_services
                 """
             }
         }
